@@ -18,23 +18,55 @@
 // a student name, and an assignment number, and returns the score for that
 // student and assignment.
 
-function assignmentScore (grades, studentName, assignmentNum) {
-
+function assignmentScore(grades, studentName, assignmentNum) {
+    return grades[studentName][assignmentNum]
 }
 
 // 2. Create a function called assignmentScores that takes a grades object
 // and an assignment number and returns all scores for that assignment.
 
-function assignmentScores (grades, assignmentNum) {
+function assignmentScores(grades, assignmentNum) {
+    return Object.values(grades).map(function (allGradesForOneStudes) {
 
+
+        return allGradesForOneStudes[assignmentNum]
+    })
 }
 
 // 3. Create a function called assignmentAverageScore that takes a grades
-// object and an assignment number and returns the average score for that assignment.
+// // object and an assignment number and returns the average score for that assignment.
+function assignmentAverageScore(grades, assignmentNum) {
+    let allScores = assignmentScores(grades, assignmentNum)
+    var total = allScores.reduce(function (total, current) {
+        return total + current
+    })
+    return total / allScores.length
+}
 
 // 4. Create a function called studentAverages that takes a grades object
 // and returns a new object of students and their average score, like this:
 // { indiana: 90, nevada: 80, indigo: 83, ... }
+
+function studentAverages(grades) {
+    let studentNames = Object.keys(grades)
+
+    let finalObject = {};
+
+    studentNames.forEach(function (studentName) {
+        let studentGrades = grades[studentName]
+    
+        let singleStudentTotal = grades[studentName].reduce(function (total, current) {
+            return total + current;
+        })
+
+        // take the average
+        let singleStudentAverage = singleStudentTotal / grades.length
+
+        // singleStudentAverage
+        finalObject[studentName.toString()] = singleStudentAverage
+    })
+    return finalObject
+}
 
 // 5. Create a function called letterGrade that returns a letter grade for a
 // numerical score. The second number is non-inclusive. For example, 90 is an 'A',
